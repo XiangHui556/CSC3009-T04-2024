@@ -18,7 +18,7 @@ conda activate tf
 ```
 
 Install TensorFlow with the following command:
-
+(You can skip this part if you are not usinng GPU)
 ```bash
 conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
 ```
