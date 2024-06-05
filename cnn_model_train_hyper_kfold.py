@@ -135,9 +135,12 @@ for i in range(6):
     best_model = tuner.get_best_models(num_models=1)[0]
 
     # Save the training history
-    history = best_model.history.history
-    with open(f"training_history_fold_{i}.pkl", "wb") as f:
-        pickle.dump(history, f)
+    try:
+        history = best_model.history.history
+        with open(f"training_history_fold_{i}.pkl", "wb") as f:
+            pickle.dump(history, f)
+    except:
+        pass
 
     # Evaluate the best model on the test set
     test_loss, test_accuracy = best_model.evaluate(test_generator)

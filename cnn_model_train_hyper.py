@@ -151,9 +151,12 @@ for i, model in enumerate(best_models):
     print(f"Test loss: {loss}, Test accuracy: {accuracy}")
 
     # Save the training history
-    history = model.history.history
-    with open(f'training_history_fold_{i}.pkl', 'wb') as f:
-        pickle.dump(history, f)
+    try:
+        history = model.history.history
+        with open(f'training_history_fold_{i}.pkl', 'wb') as f:
+            pickle.dump(history, f)
+    except:
+        pass
         
     # Save the model with accuracy and loss in the name
     model_name = f"cnn_mri_classifier_acc_{accuracy:.3f}_loss_{loss:.3f}_top_{i+1}.h5"
