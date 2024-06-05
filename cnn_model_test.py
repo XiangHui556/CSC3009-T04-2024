@@ -1,55 +1,50 @@
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import load_model
-import matplotlib.pyplot as plt
 
 print("Num GPUs Available: ", len(tf.config.list_physical_devices("GPU")))
 gpus = tf.config.experimental.list_physical_devices("GPU")
 if gpus:
     try:
         for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
-        logical_gpus = tf.config.experimental.list_logical_devices("GPU")
-        print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPUs")
+            tf.config.experimental.set_virtual_device_configuration(
+                gpu,
+                [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=128)],
+            )
     except RuntimeError as e:
         print(e)
 
-# Define the paths
+# Load the saved model
+model = load_model("cnn_mri_classifier_acc_0.833_loss_0.482_top_1.h5")
 
-model_dir = "cnn_mri_classifier.h5"
+# Recompile the model with the correct metrics
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(),  # or any other optimizer you want to use
+    loss="categorical_crossentropy",
+    metrics=["accuracy"],
+)
+
+# Define the paths
 test_dir = "resized_dataset/test"
+
+# ImageDataGenerator for normalization
 test_datagen = ImageDataGenerator(rescale=1.0 / 255)
 
+# Data generator for test set
 test_generator = test_datagen.flow_from_directory(
-    test_dir, target_size=(512, 512), batch_size=32, class_mode="categorical"
+    test_dir,
+    target_size=(
+        128,
+        128,
+    ),  # Adjust if your model was trained with a different target size
+    batch_size=12,  # Adjust based on your batch size during training
+    class_mode="categorical",
+    shuffle=False,
 )
 
-# Load the model from the file
-loaded_model = load_model(model_dir)
+# Evaluate the model on the test set
+loss, accuracy = model.evaluate(test_generator)
+print(f"Test loss: {loss}, Test accuracy: {accuracy}")
 
-# Evaluate the loaded model on the test set
-test_loss, test_acc = loaded_model.evaluate(
-    test_generator, steps=test_generator.samples // test_generator.batch_size
-)
-print(f"Test Accuracy: {test_acc:.2f}")
-
-# Plot training and validation accuracy and loss
-plt.figure(figsize=(12, 4))
-
-plt.subplot(1, 2, 1)
-plt.plot(history.history["accuracy"], label="Train Accuracy")
-plt.plot(history.history["val_accuracy"], label="Val Accuracy")
-plt.title("Accuracy")
-plt.xlabel("Epochs")
-plt.ylabel("Accuracy")
-plt.legend()
-
-plt.subplot(1, 2, 2)
-plt.plot(history.history["loss"], label="Train Loss")
-plt.plot(history.history["val_loss"], label="Val Loss")
-plt.title("Loss")
-plt.xlabel("Epochs")
-plt.ylabel("Loss")
-plt.legend()
-
-plt.show()
+# Make predictions (optional)
+predictions = model.predict(test_generator)

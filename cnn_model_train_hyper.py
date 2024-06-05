@@ -1,5 +1,6 @@
 import tensorflow as tf
 import json
+import pickle
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
@@ -149,6 +150,11 @@ for i, model in enumerate(best_models):
     loss, accuracy = model.evaluate(test_generator)
     print(f"Test loss: {loss}, Test accuracy: {accuracy}")
 
+    # Save the training history
+    history = model.history.history
+    with open(f'training_history_fold_{i}.pkl', 'wb') as f:
+        pickle.dump(history, f)
+        
     # Save the model with accuracy and loss in the name
     model_name = f"cnn_mri_classifier_acc_{accuracy:.3f}_loss_{loss:.3f}_top_{i+1}.h5"
 

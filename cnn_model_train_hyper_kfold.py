@@ -1,5 +1,6 @@
 import tensorflow as tf
 import json
+import pickle
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
@@ -132,6 +133,11 @@ for i in range(6):
 
     # Get the best model
     best_model = tuner.get_best_models(num_models=1)[0]
+
+    # Save the training history
+    history = best_model.history.history
+    with open(f"training_history_fold_{i}.pkl", "wb") as f:
+        pickle.dump(history, f)
 
     # Evaluate the best model on the test set
     test_loss, test_accuracy = best_model.evaluate(test_generator)
