@@ -18,13 +18,14 @@ if gpus:
         print(e)
 
 # Define the paths
-train_dir = "resized_dataset/train"
-val_dir = "resized_dataset/val"
-test_dir = "resized_dataset/test"
+train_dir = "resized_dataset_128/train"
+val_dir = "resized_dataset_128/val"
+test_dir = "resized_dataset_128/test"
 
 # Define image statistics
-image_size = 512
-image_color = 1
+image_size = 128
+image_color = 3
+
 
 # Define a function to build the model for hyperparameter tuning
 def build_model(hp):
@@ -34,7 +35,7 @@ def build_model(hp):
             hp.Int("conv1_units", min_value=32, max_value=256, step=32),
             (3, 3),
             activation="relu",
-            input_shape=(image_size, image_size, image_color),  #
+            input_shape=(image_size, image_size, image_color),  # 1 for grayscale, 3 for RGB
         )
     )
     model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -94,15 +95,24 @@ test_datagen = ImageDataGenerator(rescale=1.0 / 255)
 # Data generators
 # Batch size is set to 12, due to the dataset split amount, it is a multiple of 12
 train_generator = train_datagen.flow_from_directory(
-    train_dir, target_size=(image_size, image_size), batch_size=12, class_mode="categorical"
+    train_dir,
+    target_size=(image_size, image_size),
+    batch_size=28,
+    class_mode="categorical",
 )
 
 val_generator = val_datagen.flow_from_directory(
-    val_dir, target_size=(image_size, image_size), batch_size=12, class_mode="categorical"
+    val_dir,
+    target_size=(image_size, image_size),
+    batch_size=12,
+    class_mode="categorical",
 )
 
 test_generator = test_datagen.flow_from_directory(
-    test_dir, target_size=(image_size, image_size), batch_size=12, class_mode="categorical"
+    test_dir,
+    target_size=(image_size, image_size),
+    batch_size=12,
+    class_mode="categorical",
 )
 
 

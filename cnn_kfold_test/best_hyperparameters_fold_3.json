@@ -1,0 +1,1 @@
+{"conv1_units": 128, "conv_layers": 2, "conv_units_0": 160, "dense_layers": 2, "dense_units_0": 640, "learning_rate": 0.0001, "conv_units_1": 64, "dense_units_1": 512, "dense_units_2": 512, "conv_units_2": 224}
