@@ -17,6 +17,14 @@ if gpus:
     except RuntimeError as e:
         print(e)
 
+# Define the paths
+train_dir = "resized_dataset/train"
+val_dir = "resized_dataset/val"
+test_dir = "resized_dataset/test"
+
+# Define image statistics
+image_size = 512
+image_color = 1
 
 # Define a function to build the model for hyperparameter tuning
 def build_model(hp):
@@ -26,7 +34,7 @@ def build_model(hp):
             hp.Int("conv1_units", min_value=32, max_value=256, step=32),
             (3, 3),
             activation="relu",
-            input_shape=(128, 128, 3),
+            input_shape=(image_size, image_size, image_color),  #
         )
     )
     model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -68,11 +76,6 @@ def build_model(hp):
     return model
 
 
-# Define the paths
-train_dir = "resized_dataset/train"
-val_dir = "resized_dataset/val"
-test_dir = "resized_dataset/test"
-
 # ImageDataGenerator for data augmentation and normalization
 train_datagen = ImageDataGenerator(
     rescale=1.0 / 255,
@@ -91,15 +94,15 @@ test_datagen = ImageDataGenerator(rescale=1.0 / 255)
 # Data generators
 # Batch size is set to 12, due to the dataset split amount, it is a multiple of 12
 train_generator = train_datagen.flow_from_directory(
-    train_dir, target_size=(128, 128), batch_size=12, class_mode="categorical"
+    train_dir, target_size=(image_size, image_size), batch_size=12, class_mode="categorical"
 )
 
 val_generator = val_datagen.flow_from_directory(
-    val_dir, target_size=(128, 128), batch_size=12, class_mode="categorical"
+    val_dir, target_size=(image_size, image_size), batch_size=12, class_mode="categorical"
 )
 
 test_generator = test_datagen.flow_from_directory(
-    test_dir, target_size=(128, 128), batch_size=12, class_mode="categorical"
+    test_dir, target_size=(image_size, image_size), batch_size=12, class_mode="categorical"
 )
 
 
@@ -153,11 +156,11 @@ for i, model in enumerate(best_models):
     # Save the training history
     try:
         history = model.history.history
-        with open(f'training_history_fold_{i}.pkl', 'wb') as f:
+        with open(f"training_history_fold_{i}.pkl", "wb") as f:
             pickle.dump(history, f)
     except:
         pass
-        
+
     # Save the model with accuracy and loss in the name
     model_name = f"cnn_mri_classifier_acc_{accuracy:.3f}_loss_{loss:.3f}_top_{i+1}.h5"
 
