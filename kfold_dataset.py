@@ -50,6 +50,6 @@ def create_kfold_splits(data_dir, n_splits):
 
 
 # Example usage
-data_dir = "kfold_dataset"
+data_dir = "kfold_dataset_128"
 n_splits = 6
 create_kfold_splits(data_dir, n_splits)
