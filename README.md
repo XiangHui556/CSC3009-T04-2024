@@ -29,3 +29,10 @@ Install the dependencies with the following command:
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+
+
+If running to error message "partially initialized module 'charset_normalizer'" run the following command
+```bash
+pip install -U --force-reinstall charset-normalizer
+```
