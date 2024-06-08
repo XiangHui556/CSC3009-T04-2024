@@ -140,6 +140,8 @@ for i in range(6):
     # Define variables to keep track of the best model
     best_model_tune2 = None
     best_accuracy = 0
+    best_loss = 0.0
+
 
     param_grid = {
         "learning_rate": [0.001, 0.0001, 0.01, 0.00001],
