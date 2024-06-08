@@ -24,9 +24,7 @@ if gpus:
 
 # Define a function to build the model for hyperparameter tuning
 def build_VGG16_model(hp):
-    base_model = VGG16(
-        weights="imagenet", include_top=False, input_shape=(128, 128, 3)
-    )
+    base_model = VGG16(weights="imagenet", include_top=False, input_shape=(128, 128, 3))
     # Freeze the base model layers
     base_model.trainable = False
 
@@ -137,9 +135,6 @@ for i in range(6):
         callbacks=[early_stopping],
     )
 
-    # Get the best model
-    best_model = tuner.get_best_models(num_models=1)[0]
-
     # Define variables to keep track of the best model
     best_model_tune2 = None
     best_accuracy = 0
@@ -150,6 +145,8 @@ for i in range(6):
     }
 
     for params in ParameterGrid(param_grid):
+        # Get the best model
+        best_model = tuner.get_best_models(num_models=1)[0]
         learning_rate = params["learning_rate"]
         unfreeze_layer = params["unfreeze_layers"]
         print(f"Unfreezing the last {unfreeze_layer} layers")
@@ -181,9 +178,9 @@ for i in range(6):
         if test_accuracy >= best_accuracy:
             if test_accuracy == best_accuracy:
                 if test_loss < best_loss:
+                    best_accuracy = test_accuracy
                     best_loss = test_loss
                     best_model_tune2 = best_model
-                    best_accuracy = test_accuracy
             else:
                 best_model_tune2 = best_model
                 best_accuracy = test_accuracy
@@ -198,7 +195,7 @@ for i in range(6):
 
     # Save the model with accuracy and loss in the name
     model_name = (
-        f"cnn_mri_classifier_acc_{best_accuracy:.3f}_loss_{best_loss:.3f}_top_{i+1}.h5"
+        f"cnn_mri_classifier_acc_{test_accuracy:.3f}_loss_{test_loss:.3f}_top_{i+1}.h5"
     )
 
     best_model_tune2.save(model_name)
