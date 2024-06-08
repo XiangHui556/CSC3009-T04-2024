@@ -15,7 +15,8 @@ if gpus:
         print(e)
 
 # Load the saved model
-model = load_model("cnn_mri_classifier_acc_0.833_loss_0.482_top_1.h5")
+mode_name = "cnn_mri_classifier_acc_0.833_loss_0.482_top_1.h5"
+model = load_model(mode_name)
 
 # Recompile the model with the correct metrics
 model.compile(

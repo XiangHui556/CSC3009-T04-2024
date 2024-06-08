@@ -17,8 +17,8 @@ if gpus:
         print(e)
 
 # Define the paths
-train_dir = "resized_dataset/train"
-val_dir = "resized_dataset/val"
+train_dir = "../DATASETS/resized_dataset_128/train"
+val_dir = "../DATASETS/resized_dataset_128/val"
 
 # ImageDataGenerator for data augmentation and normalization
 train_datagen = ImageDataGenerator(

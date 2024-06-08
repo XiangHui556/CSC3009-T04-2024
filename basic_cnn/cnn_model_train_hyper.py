@@ -18,13 +18,13 @@ if gpus:
         print(e)
 
 # Define the paths
-train_dir = "resized_dataset_128/train"
-val_dir = "resized_dataset_128/val"
-test_dir = "resized_dataset_128/test"
+train_dir = "../DATASETS/resized_dataset_128/train"
+val_dir = "../DATASETS/resized_dataset_128/val"
+test_dir = "../DATASETS/resized_dataset_128/test"
 
 # Define image statistics
 image_size = 128
-image_color = 3
+image_color = 1
 
 
 # Define a function to build the model for hyperparameter tuning
@@ -99,6 +99,7 @@ train_generator = train_datagen.flow_from_directory(
     target_size=(image_size, image_size),
     batch_size=28,
     class_mode="categorical",
+    color_mode="grayscale"
 )
 
 val_generator = val_datagen.flow_from_directory(
@@ -106,6 +107,7 @@ val_generator = val_datagen.flow_from_directory(
     target_size=(image_size, image_size),
     batch_size=12,
     class_mode="categorical",
+    color_mode="grayscale"
 )
 
 test_generator = test_datagen.flow_from_directory(
@@ -113,6 +115,7 @@ test_generator = test_datagen.flow_from_directory(
     target_size=(image_size, image_size),
     batch_size=12,
     class_mode="categorical",
+    color_mode="grayscale"
 )
 
 
@@ -120,7 +123,7 @@ test_generator = test_datagen.flow_from_directory(
 tuner = RandomSearch(
     build_model,
     objective="val_accuracy",
-    max_trials=20,  # Maximum number of trials to run
+    max_trials=25,  # Maximum number of trials to run
     executions_per_trial=1,  # Number of executions per trial
     directory="cnn_tuner_logs",  # Directory to save results
     project_name="cnn_hyperparam_tuning",
@@ -129,7 +132,7 @@ tuner = RandomSearch(
 # Used to stop training if there is no improvement in the validation loss, improves training speed
 early_stopping = EarlyStopping(
     monitor="val_loss",
-    patience=25,  # Number of epochs with no improvement after which training will be stopped
+    patience=30,  # Number of epochs with no improvement after which training will be stopped
     restore_best_weights=True,
 )
 
@@ -162,15 +165,7 @@ for model in best_models:
 for i, model in enumerate(best_models):
     loss, accuracy = model.evaluate(test_generator)
     print(f"Test loss: {loss}, Test accuracy: {accuracy}")
-
-    # Save the training history
-    try:
-        history = model.history.history
-        with open(f"training_history_fold_{i}.pkl", "wb") as f:
-            pickle.dump(history, f)
-    except:
-        pass
-
+    
     # Save the model with accuracy and loss in the name
     model_name = f"cnn_mri_classifier_acc_{accuracy:.3f}_loss_{loss:.3f}_top_{i+1}.h5"
 

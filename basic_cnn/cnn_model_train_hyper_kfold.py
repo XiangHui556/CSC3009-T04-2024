@@ -1,6 +1,5 @@
 import tensorflow as tf
 import json
-import pickle
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
@@ -25,7 +24,7 @@ def build_model(hp):
             hp.Int("conv1_units", min_value=32, max_value=256, step=32),
             (3, 3),
             activation="relu",
-            input_shape=(128, 128, 3),
+            input_shape=(128, 128, 1),  # 1 for grayscale, 3 for RGB
         )
     )
     model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -68,12 +67,16 @@ def build_model(hp):
 
 
 # Define the paths
-data_dir = "kfold_dataset"  # Directory containing train, val, and test directories
+data_dir = "../DATASETS/kfold_dataset_128"  # Directory containing train, val, and test directories
 
-test_dir = "resized_dataset_128/test"
+test_dir = "../DATASETS/resized_dataset_128/test"
 test_datagen = ImageDataGenerator(rescale=1.0 / 255)
 test_generator = test_datagen.flow_from_directory(
-    test_dir, target_size=(128, 128), batch_size=12, class_mode="categorical"
+    test_dir,
+    target_size=(128, 128),
+    batch_size=12,
+    class_mode="categorical",
+    color_mode="grayscale",
 )
 
 # Iterate over the splits
@@ -97,11 +100,19 @@ for i in range(6):
     val_datagen = ImageDataGenerator(rescale=1.0 / 255)
 
     train_generator = train_datagen.flow_from_directory(
-        train_dir, target_size=(128, 128), batch_size=18, class_mode="categorical"
+        train_dir,
+        target_size=(128, 128),
+        batch_size=18,
+        class_mode="categorical",
+        color_mode="grayscale",
     )
 
     val_generator = val_datagen.flow_from_directory(
-        val_dir, target_size=(128, 128), batch_size=18, class_mode="categorical"
+        val_dir,
+        target_size=(128, 128),
+        batch_size=18,
+        class_mode="categorical",
+        color_mode="grayscale",
     )
 
     # Setup tuner
@@ -110,7 +121,7 @@ for i in range(6):
         objective="val_accuracy",
         max_trials=12,  # Maximum number of trials to run
         executions_per_trial=1,  # Number of executions per trial
-        directory=f"./cnn_fold/cnn_tuner_logs_fold_{i}",  # Directory to save results
+        directory=f"./cnn_fold_tuner_logs/cnn_tuner_logs_fold_{i}",  # Directory to save results
         project_name=f"cnn_hyperparam_tuning_fold_{i}",
     )
 
@@ -134,14 +145,6 @@ for i in range(6):
     # Get the best model
     best_model = tuner.get_best_models(num_models=1)[0]
 
-    # Save the training history
-    try:
-        history = best_model.history.history
-        with open(f"training_history_fold_{i}.pkl", "wb") as f:
-            pickle.dump(history, f)
-    except:
-        pass
-
     # Evaluate the best model on the test set
     test_loss, test_accuracy = best_model.evaluate(test_generator)
     print(f"Test loss: {test_loss}, Test accuracy: {test_accuracy}")
@@ -150,7 +153,7 @@ for i in range(6):
     model_name = (
         f"cnn_mri_classifier_acc_{test_accuracy:.3f}_loss_{test_loss:.3f}_top_{i+1}.h5"
     )
-    
+
     best_model.save(model_name)
 
     # Save the best hyperparameters
