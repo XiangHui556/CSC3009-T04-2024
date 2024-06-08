@@ -1,7 +1,7 @@
 import os
 import cv2
 import matplotlib.pyplot as plt
-from get_categories import get_categories
+from utils.get_categories import get_categories
 
 
 def show_sample_images(data_dir, categories):

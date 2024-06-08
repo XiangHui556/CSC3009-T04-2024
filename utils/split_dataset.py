@@ -1,7 +1,7 @@
 import shutil
 import os
 from sklearn.model_selection import train_test_split
-from get_categories import get_categories
+from utils.get_categories import get_categories
 
 # Split data into train, validation, and test sets, with 70%, 20%, and 10% respectively
 def split_data(data_dir, train_dir, val_dir, test_dir, val_ratio=0.2, test_ratio=0.1):
