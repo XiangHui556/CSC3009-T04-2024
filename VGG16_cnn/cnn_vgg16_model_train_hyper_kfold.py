@@ -198,7 +198,7 @@ for i in range(6):
 
     # Save the model with accuracy and loss in the name
     model_name = (
-        f"cnn_mri_classifier_acc_{test_accuracy:.3f}_loss_{test_loss:.3f}_top_{i+1}.h5"
+        f"cnn_mri_classifier_acc_{best_accuracy:.3f}_loss_{best_loss:.3f}_top_{i+1}.h5"
     )
 
     best_model_tune2.save(model_name)
