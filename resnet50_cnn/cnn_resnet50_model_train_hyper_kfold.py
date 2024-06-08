@@ -166,7 +166,7 @@ for i in range(6):
         # Train the model
         history = best_model.fit(
             train_generator,
-            epochs=100,
+            epochs=1000,
             validation_data=val_generator,
             steps_per_epoch=train_generator.samples // train_generator.batch_size,
             validation_steps=val_generator.samples // val_generator.batch_size,
@@ -178,9 +178,16 @@ for i in range(6):
         print(f"Test loss: {test_loss}, Test accuracy: {test_accuracy}")
 
         # Check if this model is better than the previous best model
-        if test_accuracy > best_accuracy:
-            best_model_tune2 = best_model
-            best_accuracy = test_accuracy
+        if test_accuracy >= best_accuracy:
+            if test_accuracy == best_accuracy:
+                if test_loss < best_loss:
+                    best_loss = test_loss
+                    best_model_tune2 = best_model
+                    best_accuracy = test_accuracy
+            else:
+                best_model_tune2 = best_model
+                best_accuracy = test_accuracy
+                best_loss = test_loss
 
     # Print the accuracy of the best model
     print(f"Best model accuracy: {best_accuracy}")

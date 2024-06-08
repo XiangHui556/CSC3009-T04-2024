@@ -1,6 +1,6 @@
 import tensorflow as tf
 import json
-from tensorflow.keras.applications import VGG16
+from tensorflow.keras.applications import InceptionV3
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import (
@@ -23,8 +23,8 @@ if gpus:
 
 
 # Define a function to build the model for hyperparameter tuning
-def build_VGG16_model(hp):
-    base_model = VGG16(
+def build_inceptionV3_model(hp):
+    base_model = InceptionV3(
         weights="imagenet", include_top=False, input_shape=(128, 128, 3)
     )
     # Freeze the base model layers
@@ -112,7 +112,7 @@ for i in range(6):
 
     # Setup tuner
     tuner = RandomSearch(
-        build_VGG16_model,
+        build_inceptionV3_model,
         objective="val_accuracy",
         max_trials=12,  # Maximum number of trials to run
         executions_per_trial=1,  # Number of executions per trial
@@ -197,12 +197,13 @@ for i in range(6):
     print(f"Test loss: {test_loss}, Test accuracy: {test_accuracy}")
 
     # Save the model with accuracy and loss in the name
-    model_name = (
-        f"cnn_mri_classifier_acc_{test_accuracy:.3f}_loss_{test_loss:.3f}_top_{i+1}.h5"
-    )
+    model_name = f"cnn_mri_classifier_acc_{test_accuracy:.3f}_loss_{test_loss:.3f}_top_{i+1}.h5"
 
     best_model_tune2.save(model_name)
 
     # Save the best hyperparameters
-    with open(f"best_hyperparameters_fold_{i}.json", "w") as f:
+    with open(
+        f"best_hyperparameters_fold_{i}.json",
+        "w",
+    ) as f:
         json.dump(tuner.oracle.get_best_trials(1)[0].hyperparameters.values, f)
