@@ -208,3 +208,4 @@ for i in range(6):
         "w",
     ) as f:
         json.dump(tuner.oracle.get_best_trials(1)[0].hyperparameters.values, f)
+        json.dump(params, f)

@@ -207,3 +207,4 @@ for i in range(6):
     # Save the best hyperparameters
     with open(f"best_hyperparameters_fold_{i}.json", "w") as f:
         json.dump(tuner.oracle.get_best_trials(1)[0].hyperparameters.values, f)
+        json.dump(params, f)
