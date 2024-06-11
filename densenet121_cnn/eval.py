@@ -30,7 +30,7 @@ model.compile(
 )
 
 # Define the paths
-test_dir = "dataset_12"
+test_dir = "dataset_4"
 
 # ImageDataGenerator for normalization
 test_datagen = ImageDataGenerator(rescale=1.0 / 255)

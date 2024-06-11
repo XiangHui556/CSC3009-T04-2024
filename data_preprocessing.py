@@ -38,7 +38,7 @@ def process_images(input_dir, output_dir, threshold_value=10, resize_value=512):
 
 
 # Example usage
-input_dir = "split_dataset"
-output_dir = "resized_dataset"
+input_dir = "dataset_4"
+output_dir = "dataset_4_test"
 resize_value = 128
 process_images(input_dir, output_dir, threshold_value=10, resize_value=resize_value)
