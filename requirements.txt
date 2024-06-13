@@ -4,3 +4,4 @@ keras-tuner
 matplotlib
 opencv-python
 scikit-learn
+seaborn
