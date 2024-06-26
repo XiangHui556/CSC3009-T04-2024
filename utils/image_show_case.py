@@ -1,14 +1,14 @@
 import os
 import cv2
 import matplotlib.pyplot as plt
-from utils.get_categories import get_categories
+from get_categories import get_categories
 
 
 def show_sample_images(data_dir, categories):
-    fig, axes = plt.subplots(1, len(categories), figsize=(15, 15))
+    fig, axes = plt.subplots(1, len(categories), figsize=(15, 10))
     for ax, category in zip(axes, categories):
         category_path = os.path.join(data_dir, category)
-        sample_image_path = os.path.join(category_path, os.listdir(category_path)[0])
+        sample_image_path = os.path.join(category_path, os.listdir(category_path)[33])
         sample_image = cv2.imread(sample_image_path)
         sample_image = cv2.cvtColor(sample_image, cv2.COLOR_BGR2RGB)
         ax.imshow(sample_image)
@@ -17,6 +17,6 @@ def show_sample_images(data_dir, categories):
     plt.show()
 
 
-data_dir = "./dataset_4"
+data_dir = "../DATASETS/dataset_4"
 categories = get_categories(data_dir)
 show_sample_images(data_dir, categories)

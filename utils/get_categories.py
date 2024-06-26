@@ -11,5 +11,5 @@ def get_categories(data_dir):
     return categories
 
 
-data_dir = "./dataset_4"
-get_categories(data_dir)
+# data_dir = "./dataset_4"
+# get_categories(data_dir)
