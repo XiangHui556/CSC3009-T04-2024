@@ -19,6 +19,7 @@ conda activate tf
 
 Install TensorFlow with the following command:
 (You can skip this part if you are not usinng GPU)
+
 ```bash
 conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
 ```
@@ -30,9 +31,8 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-
-
 If running to error message "partially initialized module 'charset_normalizer'" run the following command
+
 ```bash
 pip install -U --force-reinstall charset-normalizer
 ```

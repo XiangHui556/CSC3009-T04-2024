@@ -3,8 +3,9 @@ import os
 from sklearn.model_selection import train_test_split
 from utils.get_categories import get_categories
 
+
 # Split data into train, validation, and test sets, with 70%, 20%, and 10% respectively
-def split_data(data_dir, train_dir, val_dir, test_dir, val_ratio=0.2, test_ratio=0):
+def split_data(data_dir, train_dir, val_dir, test_dir, val_ratio=0.2, test_ratio=0.1):
     categories = os.listdir(data_dir)
     for category in categories:
         category_path = os.path.join(data_dir, category)
@@ -33,7 +34,7 @@ def split_data(data_dir, train_dir, val_dir, test_dir, val_ratio=0.2, test_ratio
             )
 
 
-data_dir = "./dataset_4"
+data_dir = "./DATASETS/dataset_4"
 train_dir = "split_dataset/train"
 val_dir = "split_dataset/val"
 test_dir = "split_dataset/test"

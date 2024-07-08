@@ -1,5 +1,6 @@
 import os
 
+
 def get_categories(data_dir):
     categories = os.listdir(data_dir)
     print("Categories:", categories)
