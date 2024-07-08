@@ -1,0 +1,152 @@
+(tf) C:\Users\krist\Documents\GitHub\CSC3009-T04-2024\NasNetLarge>python NasNetLarge.py
+Found 336 images belonging to 4 classes.
+Found 96 images belonging to 4 classes.
+Found 48 images belonging to 4 classes.
+2024-07-08 20:06:02.302631: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-07-08 20:06:02.711864: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1616] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9388 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 4070 Ti, pci bus id: 0000:01:00.0, compute capability: 8.9
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #
+=================================================================
+ NASNet (Functional)         (None, 11, 11, 4032)      84916818
+
+ global_average_pooling2d (G  (None, 4032)             0
+ lobalAveragePooling2D)
+
+ dropout (Dropout)           (None, 4032)              0
+
+ dense (Dense)               (None, 256)               1032448
+
+ batch_normalization (BatchN  (None, 256)              1024
+ ormalization)
+
+ dense_1 (Dense)             (None, 4)                 1028
+
+=================================================================
+Total params: 85,951,318
+Trainable params: 1,033,988
+Non-trainable params: 84,917,330
+_________________________________________________________________
+Epoch 1/100
+2024-07-08 20:06:16.916914: I tensorflow/stream_executor/cuda/cuda_dnn.cc:384] Loaded cuDNN version 8100
+2024-07-08 20:06:18.137985: I tensorflow/stream_executor/cuda/cuda_blas.cc:1614] TensorFloat-32 will be used for the matrix multiplication. This will only be logged once.
+11/11 [==============================] - ETA: 0s - loss: 1.6236 - accuracy: 0.3542
+Epoch 1: val_accuracy improved from -inf to 0.52083, saving model to best_model.h5
+11/11 [==============================] - 19s 944ms/step - loss: 1.6236 - accuracy: 0.3542 - val_loss: 1.1630 - val_accuracy: 0.5208
+Epoch 2/100
+11/11 [==============================] - ETA: 0s - loss: 1.1865 - accuracy: 0.5298
+Epoch 2: val_accuracy improved from 0.52083 to 0.62500, saving model to best_model.h5
+11/11 [==============================] - 6s 564ms/step - loss: 1.1865 - accuracy: 0.5298 - val_loss: 1.0076 - val_accuracy: 0.6250
+Epoch 3/100
+11/11 [==============================] - ETA: 0s - loss: 1.0037 - accuracy: 0.6071
+Epoch 3: val_accuracy improved from 0.62500 to 0.69792, saving model to best_model.h5
+11/11 [==============================] - 6s 567ms/step - loss: 1.0037 - accuracy: 0.6071 - val_loss: 0.8982 - val_accuracy: 0.6979
+Epoch 4/100
+11/11 [==============================] - ETA: 0s - loss: 0.8055 - accuracy: 0.6845
+Epoch 4: val_accuracy improved from 0.69792 to 0.78125, saving model to best_model.h5
+11/11 [==============================] - 6s 572ms/step - loss: 0.8055 - accuracy: 0.6845 - val_loss: 0.8172 - val_accuracy: 0.7812
+Epoch 5/100
+11/11 [==============================] - ETA: 0s - loss: 0.7920 - accuracy: 0.7083
+Epoch 5: val_accuracy improved from 0.78125 to 0.80208, saving model to best_model.h5
+11/11 [==============================] - 6s 561ms/step - loss: 0.7920 - accuracy: 0.7083 - val_loss: 0.7459 - val_accuracy: 0.8021
+Epoch 6/100
+11/11 [==============================] - ETA: 0s - loss: 0.7299 - accuracy: 0.7173
+Epoch 6: val_accuracy did not improve from 0.80208
+11/11 [==============================] - 5s 414ms/step - loss: 0.7299 - accuracy: 0.7173 - val_loss: 0.6964 - val_accuracy: 0.8021
+Epoch 7/100
+11/11 [==============================] - ETA: 0s - loss: 0.7003 - accuracy: 0.7173
+Epoch 7: val_accuracy improved from 0.80208 to 0.83333, saving model to best_model.h5
+11/11 [==============================] - 6s 586ms/step - loss: 0.7003 - accuracy: 0.7173 - val_loss: 0.6565 - val_accuracy: 0.8333
+Epoch 8/100
+11/11 [==============================] - ETA: 0s - loss: 0.7351 - accuracy: 0.7440
+Epoch 8: val_accuracy did not improve from 0.83333
+11/11 [==============================] - 5s 413ms/step - loss: 0.7351 - accuracy: 0.7440 - val_loss: 0.6073 - val_accuracy: 0.8333
+Epoch 9/100
+11/11 [==============================] - ETA: 0s - loss: 0.7813 - accuracy: 0.7024
+Epoch 9: val_accuracy did not improve from 0.83333
+11/11 [==============================] - 5s 407ms/step - loss: 0.7813 - accuracy: 0.7024 - val_loss: 0.5735 - val_accuracy: 0.8333
+Epoch 10/100
+11/11 [==============================] - ETA: 0s - loss: 0.6154 - accuracy: 0.7470
+Epoch 10: val_accuracy improved from 0.83333 to 0.85417, saving model to best_model.h5
+11/11 [==============================] - 6s 567ms/step - loss: 0.6154 - accuracy: 0.7470 - val_loss: 0.5449 - val_accuracy: 0.8542
+Epoch 11/100
+11/11 [==============================] - ETA: 0s - loss: 0.6269 - accuracy: 0.7589
+Epoch 11: val_accuracy improved from 0.85417 to 0.87500, saving model to best_model.h5
+11/11 [==============================] - 6s 563ms/step - loss: 0.6269 - accuracy: 0.7589 - val_loss: 0.5072 - val_accuracy: 0.8750
+Epoch 12/100
+11/11 [==============================] - ETA: 0s - loss: 0.5813 - accuracy: 0.7857
+Epoch 12: val_accuracy improved from 0.87500 to 0.91667, saving model to best_model.h5
+11/11 [==============================] - 6s 567ms/step - loss: 0.5813 - accuracy: 0.7857 - val_loss: 0.4637 - val_accuracy: 0.9167
+Epoch 13/100
+11/11 [==============================] - ETA: 0s - loss: 0.6256 - accuracy: 0.7768
+Epoch 13: val_accuracy improved from 0.91667 to 0.92708, saving model to best_model.h5
+11/11 [==============================] - 6s 551ms/step - loss: 0.6256 - accuracy: 0.7768 - val_loss: 0.4245 - val_accuracy: 0.9271
+Epoch 14/100
+11/11 [==============================] - ETA: 0s - loss: 0.5022 - accuracy: 0.7946
+Epoch 14: val_accuracy did not improve from 0.92708
+11/11 [==============================] - 5s 440ms/step - loss: 0.5022 - accuracy: 0.7946 - val_loss: 0.4042 - val_accuracy: 0.9271
+Epoch 15/100
+11/11 [==============================] - ETA: 0s - loss: 0.5536 - accuracy: 0.8185
+Epoch 15: val_accuracy improved from 0.92708 to 0.93750, saving model to best_model.h5
+11/11 [==============================] - 6s 595ms/step - loss: 0.5536 - accuracy: 0.8185 - val_loss: 0.3912 - val_accuracy: 0.9375
+Epoch 16/100
+11/11 [==============================] - ETA: 0s - loss: 0.4287 - accuracy: 0.8482
+Epoch 16: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 408ms/step - loss: 0.4287 - accuracy: 0.8482 - val_loss: 0.3795 - val_accuracy: 0.9271
+Epoch 17/100
+11/11 [==============================] - ETA: 0s - loss: 0.4390 - accuracy: 0.8125
+Epoch 17: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 410ms/step - loss: 0.4390 - accuracy: 0.8125 - val_loss: 0.3700 - val_accuracy: 0.9271
+Epoch 18/100
+11/11 [==============================] - ETA: 0s - loss: 0.5591 - accuracy: 0.8095
+Epoch 18: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 404ms/step - loss: 0.5591 - accuracy: 0.8095 - val_loss: 0.3615 - val_accuracy: 0.9271
+Epoch 19/100
+11/11 [==============================] - ETA: 0s - loss: 0.4796 - accuracy: 0.8304
+Epoch 19: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 419ms/step - loss: 0.4796 - accuracy: 0.8304 - val_loss: 0.3587 - val_accuracy: 0.9271
+Epoch 20/100
+11/11 [==============================] - ETA: 0s - loss: 0.5644 - accuracy: 0.7857
+Epoch 20: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 408ms/step - loss: 0.5644 - accuracy: 0.7857 - val_loss: 0.3447 - val_accuracy: 0.9271
+Epoch 21/100
+11/11 [==============================] - ETA: 0s - loss: 0.4065 - accuracy: 0.8363
+Epoch 21: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 414ms/step - loss: 0.4065 - accuracy: 0.8363 - val_loss: 0.3419 - val_accuracy: 0.9062
+Epoch 22/100
+11/11 [==============================] - ETA: 0s - loss: 0.4064 - accuracy: 0.8482
+Epoch 22: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 415ms/step - loss: 0.4064 - accuracy: 0.8482 - val_loss: 0.3353 - val_accuracy: 0.9271
+Epoch 23/100
+11/11 [==============================] - ETA: 0s - loss: 0.4418 - accuracy: 0.8423
+Epoch 23: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 411ms/step - loss: 0.4418 - accuracy: 0.8423 - val_loss: 0.3333 - val_accuracy: 0.9271
+Epoch 24/100
+11/11 [==============================] - ETA: 0s - loss: 0.4535 - accuracy: 0.8393
+Epoch 24: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 418ms/step - loss: 0.4535 - accuracy: 0.8393 - val_loss: 0.3319 - val_accuracy: 0.9271
+Epoch 25/100
+11/11 [==============================] - ETA: 0s - loss: 0.4412 - accuracy: 0.8333
+Epoch 25: val_accuracy did not improve from 0.93750
+11/11 [==============================] - 5s 471ms/step - loss: 0.4412 - accuracy: 0.8333 - val_loss: 0.3329 - val_accuracy: 0.9167
+3/3 [==============================] - 4s 251ms/step - loss: 0.3912 - accuracy: 0.9375
+Best Parameters: {'name': 'Adam', 'learning_rate': 1e-04, 'decay': 0.0, 'beta_1': 0.9, 'beta_2': 0.999, 'epsilon': 1e-07, 'amsgrad': False}
+Val Accuracy: 0.9375
+Val Loss: 0.39121660590171814
+2/2 [==============================] - 0s 121ms/step - loss: 0.5617 - accuracy: 0.8125
+Test Accuracy: 0.8125
+Test Loss: 0.5617
+2/2 [==============================] - 3s 254ms/step
+Classification Report:
+
+              precision    recall  f1-score   support
+
+      glioma       0.90      0.75      0.82        12
+  meningioma       0.73      0.92      0.81        12
+   pituitary       0.88      0.58      0.70        12
+     notumor       0.80      1.00      0.89        12
+
+    accuracy                           0.81        48
+   macro avg       0.83      0.81      0.81        48
+weighted avg       0.83      0.81      0.81        48

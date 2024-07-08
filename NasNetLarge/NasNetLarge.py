@@ -4,13 +4,12 @@ from tensorflow.keras.applications.nasnet import NASNetLarge
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import (
     Dropout,
-    Flatten,
-    BatchNormalization,
     Dense,
-    Activation,
-    GlobalAveragePooling2D
+    GlobalAveragePooling2D,
+    BatchNormalization,
 )
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -69,41 +68,27 @@ base_model = NASNetLarge(
 # Freeze all layers of NASNetLarge
 base_model.trainable = False
 
-# Building Model
-# model = Sequential()
-# model.add(base_model)
-# model.add(Dropout(0.5))
-# model.add(Flatten())
-# model.add(BatchNormalization())
-# model.add(Dense(32, kernel_initializer="he_uniform"))
-# model.add(BatchNormalization())
-# model.add(Activation("relu"))
-# model.add(Dropout(0.5))
-# model.add(Dense(32, kernel_initializer="he_uniform"))
-# model.add(BatchNormalization())
-# model.add(Activation("relu"))
-# model.add(Dropout(0.5))
-# model.add(Dense(32, kernel_initializer="he_uniform"))
-# model.add(BatchNormalization())
-# model.add(Activation("relu"))
-# model.add(Dense(4, activation="softmax"))
+# Building Model with Dropout and Batch Normalization
 model = Sequential()
 model.add(base_model)
 model.add(GlobalAveragePooling2D())
-model.add(Dense(4, activation='softmax'))
+model.add(Dropout(0.5))
+model.add(Dense(256, activation="relu"))
+model.add(BatchNormalization())
+model.add(Dense(4, activation="softmax"))
 
 # Model Summary
 model.summary()
 
-# Compile the model
+# Compile the model with Adam optimizer and categorical crossentropy loss
 model.compile(
     optimizer=Adam(learning_rate=0.0001),
     loss="categorical_crossentropy",
     metrics=["accuracy"],
 )
 
-# Train the model with callbacks to save the best model based on validation accuracy
-checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
+# Define callbacks
+checkpoint_callback = ModelCheckpoint(
     filepath="best_model.h5",
     monitor="val_accuracy",
     mode="max",
@@ -111,11 +96,19 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     verbose=1,
 )
 
+early_stopping_callback = EarlyStopping(
+    monitor="val_accuracy",  # Monitor validation accuracy
+    patience=10,  # Number of epochs with no improvement after which training will be stopped
+    restore_best_weights=True,  # Restore weights to the best observed during training
+)
+
+# Train the model with callbacks to save the best model based on validation accuracy
 history = model.fit(
     train_generator,
-    epochs=25,
+    epochs=100, 
     validation_data=val_generator,
-    callbacks=[checkpoint_callback],
+    callbacks=[checkpoint_callback, early_stopping_callback],
+    verbose=1,
 )
 
 # Load the best saved model
