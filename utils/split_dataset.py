@@ -34,7 +34,7 @@ def split_data(data_dir, train_dir, val_dir, test_dir, val_ratio=0.2, test_ratio
             )
 
 
-data_dir = "./DATASETS/dataset_4"
+data_dir = "./dataset_4_test"
 train_dir = "split_dataset/train"
 val_dir = "split_dataset/val"
 test_dir = "split_dataset/test"

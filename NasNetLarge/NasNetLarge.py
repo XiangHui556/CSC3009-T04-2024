@@ -41,21 +41,21 @@ test_datagen = ImageDataGenerator(rescale=1.0 / 255)
 train_generator = train_datagen.flow_from_directory(
     train_dir,
     target_size=(331, 331),
-    batch_size=32,
+    batch_size=8,
     class_mode="categorical",
 )
 
 val_generator = valid_datagen.flow_from_directory(
     val_dir,
     target_size=(331, 331),
-    batch_size=32,
+    batch_size=8,
     class_mode="categorical",
 )
 
 test_generator = valid_datagen.flow_from_directory(
     test_dir,
     target_size=(331, 331),
-    batch_size=32,
+    batch_size=8,
     class_mode="categorical",
     shuffle=False,
 )
