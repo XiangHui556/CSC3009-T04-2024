@@ -16,7 +16,7 @@ if gpus:
         print(e)
 
 # Load the saved model
-mode_name = "inceptionResNetV2_model.h5"
+mode_name = "nasnetlarge_fold_0.h5"
 model = load_model(mode_name)
 
 # Recompile the model with the correct metrics
@@ -27,7 +27,7 @@ model.compile(
 )
 
 # Define the paths
-test_dir = "./DATASETS/dataset_7_256"
+test_dir = "./DATASETS/dataset_7_331"
 
 # ImageDataGenerator for normalization
 test_datagen = ImageDataGenerator(rescale=1.0 / 255)
@@ -36,10 +36,10 @@ test_datagen = ImageDataGenerator(rescale=1.0 / 255)
 test_generator = test_datagen.flow_from_directory(
     test_dir,
     target_size=(
-        256,
-        256,
+        331,
+        331,
     ),  # Adjust if your model was trained with a different target size
-    batch_size=12,  # Adjust based on your batch size during training
+    batch_size=16,  # Adjust based on your batch size during training
     class_mode="categorical",
     shuffle=False,
 )

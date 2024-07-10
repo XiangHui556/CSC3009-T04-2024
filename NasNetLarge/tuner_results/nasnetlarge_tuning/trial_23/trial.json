@@ -1,0 +1,77 @@
+{
+  "trial_id": "23",
+  "hyperparameters": {
+    "space": [
+      {
+        "class_name": "Choice",
+        "config": {
+          "name": "learning_rate",
+          "default": 0.01,
+          "conditions": [],
+          "values": [0.01, 0.001, 0.0001],
+          "ordered": true
+        }
+      },
+      {
+        "class_name": "Choice",
+        "config": {
+          "name": "dropout_rate",
+          "default": 0.0,
+          "conditions": [],
+          "values": [0.0, 0.2, 0.5],
+          "ordered": true
+        }
+      },
+      {
+        "class_name": "Choice",
+        "config": {
+          "name": "dense_units",
+          "default": 128,
+          "conditions": [],
+          "values": [128, 256, 512],
+          "ordered": true
+        }
+      },
+      {
+        "class_name": "Choice",
+        "config": {
+          "name": "optimizer",
+          "default": "adam",
+          "conditions": [],
+          "values": ["adam"],
+          "ordered": false
+        }
+      }
+    ],
+    "values": {
+      "learning_rate": 0.01,
+      "dropout_rate": 0.0,
+      "dense_units": 512,
+      "optimizer": "adam"
+    }
+  },
+  "metrics": {
+    "metrics": {
+      "loss": {
+        "direction": "min",
+        "observations": [{ "value": [0.34526368975639343], "step": 9 }]
+      },
+      "accuracy": {
+        "direction": "max",
+        "observations": [{ "value": [0.8984375], "step": 9 }]
+      },
+      "val_loss": {
+        "direction": "min",
+        "observations": [{ "value": [0.4812999665737152], "step": 9 }]
+      },
+      "val_accuracy": {
+        "direction": "max",
+        "observations": [{ "value": [0.875], "step": 9 }]
+      }
+    }
+  },
+  "score": 0.875,
+  "best_step": 9,
+  "status": "COMPLETED",
+  "message": null
+}

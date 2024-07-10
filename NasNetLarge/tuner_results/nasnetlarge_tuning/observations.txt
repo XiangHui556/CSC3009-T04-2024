@@ -1,0 +1,39 @@
+Based on the 27 trials, we derived that the best trials to play around are:
+16 batch size
+
+1. trial_01 0.8958
+
+"learning_rate": 0.0001,
+"dropout_rate": 0.0,
+"dense_units": 512,
+"optimizer": "adam"
+
+2. trial_04 0.90625 at step 22
+
+"learning_rate": 0.01,
+"dropout_rate": 0.5,
+"dense_units": 512,
+"optimizer": "adam"
+
+3. trial_24 0.90625 at step 14 
+
+"learning_rate": 0.0001, <- slower goodmcoverge faster at step 14
+"dropout_rate": 0.5,
+"dense_units": 512,
+"optimizer": "adam"
+
+4. trial 11 0.875
+
+"learning_rate": 0.0001,
+"dropout_rate": 0.2, <- compared to trial_01, drop rate 0.2 cause it to lower validation accuracy
+"dense_units": 512,
+"optimizer": "adam"
+
+5. trial 13 0.8645
+
+"learning_rate": 0.0001,
+"dropout_rate": 0.0,
+"dense_units": 256, <- lower dense_units, lower validation accuracy
+"optimizer": "adam"
+
+So learning rate should be 0.0001, 0.0, 512.
