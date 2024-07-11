@@ -17,7 +17,7 @@ Based on the 27 trials, we derived that the best trials to play around are:
 
 3. trial_24 0.90625 at step 14 
 
-"learning_rate": 0.0001, <- slower goodmcoverge faster at step 14
+"learning_rate": 0.0001, <- slower good coverge faster at step 14
 "dropout_rate": 0.5,
 "dense_units": 512,
 "optimizer": "adam"
