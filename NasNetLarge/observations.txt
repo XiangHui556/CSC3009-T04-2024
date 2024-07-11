@@ -36,4 +36,4 @@ Based on the 27 trials, we derived that the best trials to play around are:
 "dense_units": 256, <- lower dense_units, lower validation accuracy
 "optimizer": "adam"
 
-So learning rate should be 0.0001, 0.0, 512.
+So learning rate should be 0.0001, 0.0 (can be modified if overfitting), 512.
