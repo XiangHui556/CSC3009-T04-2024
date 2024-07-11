@@ -44,4 +44,3 @@ for category in categories:
     os.makedirs(os.path.join(train_dir, category), exist_ok=True)
     os.makedirs(os.path.join(val_dir, category), exist_ok=True)
     # os.makedirs(os.path.join(test_dir, category), exist_ok=True)
-

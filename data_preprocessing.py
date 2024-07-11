@@ -4,6 +4,7 @@ from utils.contour_cropping import crop_black_borders
 from utils.contour_cropping import make_square
 from utils.resize_image import resize_and_convert_to_grayscale
 
+
 def process_images(input_dir, output_dir, threshold_value=10, resize_value=512):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -39,6 +40,6 @@ def process_images(input_dir, output_dir, threshold_value=10, resize_value=512):
 
 # Example usage
 resize_value = 128
-input_dir = "dataset_7"
-output_dir = f"dataset_7_{resize_value}"
+input_dir = "dataset_4"
+output_dir = f"dataset_4_{resize_value}"
 process_images(input_dir, output_dir, threshold_value=10, resize_value=resize_value)

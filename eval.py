@@ -27,7 +27,7 @@ model.compile(
 )
 
 # Define the paths
-test_dir = "./DATASETS/dataset_7_331"
+test_dir = "./DATASETS/dataset_4_128"
 
 # ImageDataGenerator for normalization
 test_datagen = ImageDataGenerator(rescale=1.0 / 255)
@@ -36,8 +36,8 @@ test_datagen = ImageDataGenerator(rescale=1.0 / 255)
 test_generator = test_datagen.flow_from_directory(
     test_dir,
     target_size=(
-        331,
-        331,
+        128,
+        128,
     ),  # Adjust if your model was trained with a different target size
     batch_size=16,  # Adjust based on your batch size during training
     class_mode="categorical",

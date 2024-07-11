@@ -1,6 +1,24 @@
-# Installation Guide
+# CSC3009 Machine Learning Group 04 Project
 
-## 1. Create a conda environment
+## Overview
+
+This project aims to develop and evaluate open-source machine-learning models using deep learning techniques for classifying brain MRI images into four distinct categories: glioma, meningioma, notumor and pituitary.
+
+## Dataset
+
+Dataset used for this project is under `DATASETS/dataset_4` folder.
+
+## Models Used
+
+1. DenseNet169
+2. InceptionV3 (GoogleNet)
+3. MobileNet
+4. NasNetLarge
+5. VGG19
+
+## Installation Guide
+
+### 1. Create a conda environment
 
 Instructions for creating a conda environment, setting up the GPU (if applicable), and installing TensorFlow along with its dependencies.
 
@@ -36,3 +54,11 @@ If running to error message "partially initialized module 'charset_normalizer'" 
 ```bash
 pip install -U --force-reinstall charset-normalizer
 ```
+
+## Team Members
+
+- Chia Keng Li (2102718)
+- Dylan Tok Hong Xun (2101372)
+- Goh Yee Kit (2100649)
+- Kwok Jun Peng Derick (2100689)
+- Zhang XiangHui (2101993)
