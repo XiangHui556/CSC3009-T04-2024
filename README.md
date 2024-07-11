@@ -16,6 +16,8 @@ Dataset used for this project is under `DATASETS/dataset_4` folder.
 4. NasNetLarge
 5. VGG19
 
+We have attempted other models as well under `Other Model Attempts`. However, we have chosen the above five as the main focus for this project based on the results.
+
 ## Installation Guide
 
 ### 1. Create a conda environment
